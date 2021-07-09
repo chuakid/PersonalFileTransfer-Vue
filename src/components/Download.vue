@@ -48,7 +48,7 @@ export default {
         axios
           .post(
             import.meta.env.VITE_HOST +
-              "api/gettoken/" +
+              "/api/gettoken/" +
               this.$route.params.file_id,
             {
               password: this.password,
@@ -57,7 +57,7 @@ export default {
           .then((response) => {
             let link = document.createElement("a");
             link.href =
-              "api/downloadfilewithtoken/" +
+              "/api/downloadfilewithtoken/" +
               this.$route.params.file_id +
               "/" +
               response.data["token"];
