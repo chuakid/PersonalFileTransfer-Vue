@@ -13,7 +13,7 @@
     <div v-if="passwordNeeded">
       <label class="block font-medium" name="password">Password</label>
       <input
-        v-bind="password"
+        v-model="password"
         id="password"
         title="password"
         class="w-full border px-1 shadow-md"
@@ -51,12 +51,12 @@ export default {
               "/api/gettoken/" +
               this.$route.params.file_id,
             {
-              password: this.password,
+              password: String(this.password),
             }
           )
           .then((response) => {
             let link = document.createElement("a");
-            link.href =
+            link.href = import.meta.env.VITE_HOST +
               "/api/downloadfilewithtoken/" +
               this.$route.params.file_id +
               "/" +
