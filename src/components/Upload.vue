@@ -36,6 +36,48 @@
       >
         Upload
       </button>
+      <div v-if="uploadStarted" class="relative pt-1">
+        <div class="flex mb-2 items-center justify-between">
+          <div>
+            <span
+              class="
+                text-xs
+                font-semibold
+                inline-block
+                py-1
+                px-2
+                uppercase
+                rounded-full
+                text-indigo-600
+                bg-indigo-200
+              "
+            >
+              Upload Progress
+            </span>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-semibold inline-block text-indigo-600">
+              {{ uploadProgress }}%
+            </span>
+          </div>
+        </div>
+        <div
+          class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-200"
+        >
+          <div
+            :style="progressBarWidth"
+            class="
+              shadow-none
+              flex flex-col
+              text-center
+              whitespace-nowrap
+              text-white
+              justify-center
+              bg-indigo-500
+            "
+          ></div>
+        </div>
+      </div>
       <a class="text-blue-500" :href="downloadLink" v-if="uploadSuccess"
         >Your link is {{ downloadLink }}</a
       >
@@ -46,6 +88,11 @@
 <script>
 import axios from "axios";
 export default {
+  computed: {
+    progressBarWidth() {
+      return "width: " + this.uploadProgress + "%";
+    },
+  },
   methods: {
     fileChanged(e) {
       this.file = e.target.files[0];
@@ -59,12 +106,18 @@ export default {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          onUploadProgress: (progressEvent) =>
-            console.log(progressEvent.loaded / progressEvent.total),
+          onUploadProgress: (progressEvent) => {
+            this.uploadStarted = true;
+            this.uploadProgress = Math.round(
+              (progressEvent.loaded / progressEvent.total) * 100
+            );
+            // console.log(progressEvent.loaded / progressEvent.total),
+          },
         })
         .then((response) => {
           this.downloadLink = "/download/" + response.data["file_id"];
           this.uploadSuccess = true;
+          this.uploadStarted = false;
         })
         .catch((error) => {
           console.log(error);
@@ -73,6 +126,8 @@ export default {
   },
   data() {
     return {
+      uploadProgress: 0,
+      uploadStarted: false,
       file: null,
       password: "",
       uploadSuccess: false,
