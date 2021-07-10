@@ -40,9 +40,9 @@
       </div>
       <div v-if="uploadSuccess" class="rounded bg-indigo-900 hover:bg-indigo-500 pr-2 mt-2 transition">
         <span class="rounded inline-block bg-indigo-700 shadow-none text-white px-3 mr-2">Link</span>
-        <a class="text-white" :href="downloadLink">
+        <router-link :to="{ name: 'download', params: { file_id: downloadLink } }" class="text-white" :href="downloadLink">
           {{ downloadLink }}
-        </a>
+        </router-link>
       </div>
     </form>
     <div class="flex flex-col bg-gray-50 border-l px-8 pt-6 pb-8">
