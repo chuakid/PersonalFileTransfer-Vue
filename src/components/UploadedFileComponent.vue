@@ -33,11 +33,12 @@ export default {
         this.hours = response.data["hours"];
         this.minutes = response.data["minutes"];
         if (this.hours == 0 && this.minutes == 0) {
-          console.log("test");
           this.previousFilesStore.removeFileFromStore(this.file);
         }
       })
-      .catch((e) => {});
+      .catch((e) => {
+            this.previousFilesStore.removeFileFromStore(this.file);
+      });
   },
 };
 </script>
