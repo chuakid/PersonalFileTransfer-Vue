@@ -40,7 +40,7 @@
       </div>
       <div v-if="uploadSuccess" class="rounded bg-indigo-900 hover:bg-indigo-500 pr-2 mt-2 transition">
         <span class="rounded inline-block bg-indigo-700 shadow-none text-white px-3 mr-2">Link</span>
-        <router-link :to="{ name: 'download', params: { file_id: downloadLink } }" class="text-white" :href="downloadLink">
+        <router-link :to="{ name: 'download', params: { file_id: fileid } }" class="text-white">
           {{ downloadLink }}
         </router-link>
       </div>
@@ -90,6 +90,7 @@ export default {
           },
         })
         .then((response) => {
+          this.fileid = response.data["file_id"]
           this.downloadLink =
             window.location.protocol + "//" + window.location.host + "/download/" + response.data["file_id"];
           this.uploadSuccess = true;
