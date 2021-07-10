@@ -30,6 +30,7 @@
           rounded
           hover:bg-blue-700
           text-white
+          transition
         "
         id="submit"
         type="button"
@@ -78,9 +79,13 @@
           ></div>
         </div>
       </div>
-      <a class="text-blue-500" :href="downloadLink" v-if="uploadSuccess"
-        >Your link is {{ downloadLink }}</a
-      >
+      <div v-if="uploadSuccess" class="rounded bg-indigo-900 hover:bg-indigo-500 pr-2 mt-2 transition">
+        <span class="rounded inline-block bg-indigo-700 shadow-none text-white px-3 mr-2 ">Link</span>
+        <a class="text-white" :href="downloadLink">
+          {{ downloadLink }}
+        </a>
+      </div>
+      
     </form>
   </div>
 </template>
@@ -115,7 +120,8 @@ export default {
           },
         })
         .then((response) => {
-          this.downloadLink = "/download/" + response.data["file_id"];
+          this.downloadLink =
+            window.location.protocol + "//" + window.location.host + "/download/" + response.data["file_id"];
           this.uploadSuccess = true;
           this.uploadStarted = false;
         })
