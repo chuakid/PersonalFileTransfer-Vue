@@ -96,7 +96,6 @@ export default {
           this.passwordNeeded = response.data['passwordneeded']
       })
       .catch((e) => {});
-    console.log(this.$route.params.file_id);
   },
 };
 </script>
