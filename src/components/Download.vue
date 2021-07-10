@@ -70,7 +70,9 @@ export default {
         this.minutes = response.data["minutes"];
         this.passwordNeeded = response.data["passwordneeded"];
       })
-      .catch((e) => {});
+      .catch((e) => {
+          this.$router.push({path: "/"});
+      });
   },
 };
 </script>
