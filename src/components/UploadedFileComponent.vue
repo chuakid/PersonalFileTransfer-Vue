@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'download', params: { file_id: file } }">
     <div class="bg-indigo-700 text-center transform hover:scale-110 transition mt-2 text-white rounded">
       <span class="block px-2 transition py-1 bg-indigo-900">{{ filename }}</span>
-      <span class="block px-2">Expires in {{ hoursleft }} {{ minutes }} minutes</span>
+      <span class="block px-2 py-1">Expires in {{ hoursleft }} {{ minutes }} minutes</span>
     </div>
   </router-link>
 </template>
