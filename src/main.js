@@ -7,7 +7,7 @@ import App from "./App.vue"
 
 const routes = [
     { path: '/', component: Upload },
-    { path: '/download/:file_id', component: Download },
+    { path: '/download/:file_id', component: Download, name: "download" },
 ];
 
 const router = createRouter({ routes, history: createWebHistory() })

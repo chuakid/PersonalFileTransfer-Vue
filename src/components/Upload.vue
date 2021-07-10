@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <form id="form" class="bg-gray-50 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <div class="flex bg-gray-50 shadow-md rounded">
+    <form id="form" class="px-8 pt-6 pb-8">
       <h2 class="text-3xl font-medium text-center mb-3">Upload</h2>
       <div class="mb-2">
         <label class="block font-medium">File</label
@@ -45,13 +45,26 @@
         </a>
       </div>
     </form>
+    <div class="flex flex-col bg-gray-50 border-l px-8 pt-6 pb-8">
+      <h2 class="text-3xl font-medium text-center mb-3">Previous Files</h2>
+      <uploaded-file-component
+        v-for="file in previousFilesStore.previousFiles"
+        :key="file"
+        :file="file"
+      ></uploaded-file-component>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import store from "../store";
+import UploadedFileComponent from "./UploadedFileComponent.vue";
 export default {
-  mounted() {},
+  components: { UploadedFileComponent },
+  mounted() {
+    this.previousFilesStore.loadStore();
+  },
   computed: {
     progressBarWidth() {
       return "width: " + this.uploadProgress + "%";
@@ -81,6 +94,7 @@ export default {
             window.location.protocol + "//" + window.location.host + "/download/" + response.data["file_id"];
           this.uploadSuccess = true;
           this.uploadStarted = false;
+          this.previousFilesStore.addFileToStore(response.data["file_id"]);
         })
         .catch((error) => {
           console.log(error);
@@ -89,6 +103,7 @@ export default {
   },
   data() {
     return {
+      previousFilesStore: store,
       uploadProgress: 0,
       uploadStarted: false,
       file: null,
