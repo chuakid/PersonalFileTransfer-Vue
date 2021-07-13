@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     axios
-      .get(import.meta.env.VITE_HOST + "/api/file_info/" + this.file)
+      .get(store.apis.file + this.file)
       .then((response) => {
         this.filename = response.data["filename"];
         this.hours = response.data["hours"];
@@ -37,7 +37,7 @@ export default {
         }
       })
       .catch((e) => {
-            this.previousFilesStore.removeFileFromStore(this.file);
+        this.previousFilesStore.removeFileFromStore(this.file);
       });
   },
 };

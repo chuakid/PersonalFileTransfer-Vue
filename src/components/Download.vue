@@ -24,32 +24,22 @@
 
 <script>
 import axios from "axios";
+import store from "../store";
 export default {
   methods: {
     download() {
-      if (this.passwordNeeded) {
-        axios
-          .post(import.meta.env.VITE_HOST + "/api/gettoken/" + this.$route.params.file_id, {
-            password: String(this.password),
-          })
-          .then((response) => {
-            let link = document.createElement("a");
-            link.href =
-              import.meta.env.VITE_HOST +
-              "/api/downloadfilewithtoken/" +
-              this.$route.params.file_id +
-              "/" +
-              response.data["token"];
-            link.click();
-          })
-          .catch((error) => {
-            alert("Wrong password");
-          });
-      } else {
-        let link = document.createElement("a"); //Download file
-        link.href = import.meta.env.VITE_HOST + "/api/downloadfile/" + this.$route.params.file_id;
-        link.click();
-      }
+      axios
+        .post(store.apis.token + this.$route.params.file_id, {
+          password: String(this.password),
+        })
+        .then((response) => {
+          let link = document.createElement("a");
+          link.href = store.apis.file + this.$route.params.file_id + "/" + response.data["token"];
+          link.click();
+        })
+        .catch((error) => {
+          alert("Wrong password");
+        });
     },
   },
   data() {
@@ -63,7 +53,7 @@ export default {
   },
   mounted() {
     axios
-      .get(import.meta.env.VITE_HOST + "/api/file_info/" + this.$route.params.file_id)
+      .get(store.apis.file + this.$route.params.file_id)
       .then((response) => {
         this.filename = response.data["filename"];
         this.hours = response.data["hours"];
@@ -71,7 +61,7 @@ export default {
         this.passwordNeeded = response.data["passwordneeded"];
       })
       .catch((e) => {
-          this.$router.push({path: "/"});
+        this.$router.push({ path: "/" });
       });
   },
 };

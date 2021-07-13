@@ -14,5 +14,11 @@ export default {
         })
         localStorage.setItem("previousFiles", JSON.stringify(this.previousFiles))
 
+    },
+
+    apis: {
+        "file": import.meta.env.VITE_HOST + "/api/file/",
+        "token": import.meta.env.VITE_HOST + "/api/token/",
+
     }
 }

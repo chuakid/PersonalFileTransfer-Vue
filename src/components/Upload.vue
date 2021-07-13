@@ -79,7 +79,7 @@ export default {
       formData.append("file", this.file);
       formData.append("password", this.password);
       axios
-        .put(import.meta.env.VITE_HOST + "/api/upload", formData, {
+        .put(store.apis.file, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -90,7 +90,7 @@ export default {
           },
         })
         .then((response) => {
-          this.fileid = response.data["file_id"]
+          this.fileid = response.data["file_id"];
           this.downloadLink =
             window.location.protocol + "//" + window.location.host + "/download/" + response.data["file_id"];
           this.uploadSuccess = true;
