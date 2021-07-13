@@ -11,9 +11,9 @@
         <input class="px-1 w-full shadow-md border" type="password" v-model="password" />
       </div>
       <button
-        @click="submit"
+        @click="upload"
         class="w-full mt-2 py-2 px-2 bg-blue-500 rounded hover:bg-blue-700 text-white transition"
-        id="submit"
+        id="upload"
         type="button"
       >
         Upload
@@ -74,7 +74,7 @@ export default {
     fileChanged(e) {
       this.file = e.target.files[0];
     },
-    submit() {
+    upload() {
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("password", this.password);
