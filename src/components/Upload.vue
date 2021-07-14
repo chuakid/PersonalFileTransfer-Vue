@@ -75,6 +75,9 @@ export default {
       this.file = e.target.files[0];
     },
     upload() {
+      if (this.file === null) {
+        return;
+      }
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("password", this.password);
