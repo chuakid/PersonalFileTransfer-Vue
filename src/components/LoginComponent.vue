@@ -1,6 +1,6 @@
 <template>
   <div class="transition-all bg-gray-50 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <form>
+    <form @submit.prevent="login">
       <div class="mb-2">
         <label class="block font-medium">Password</label>
         <input class="px-1 w-full shadow-md border" type="password" v-model="password" />
