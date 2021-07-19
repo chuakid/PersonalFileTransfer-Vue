@@ -23,21 +23,22 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../api";
 import store from "../store";
 export default {
   methods: {
     download() {
-      axios
-        .post(store.apis.token + this.$route.params.file_id, {
+      api
+        .post("/token/" + this.$route.params.file_id, {
           password: String(this.password),
         })
         .then((response) => {
           let link = document.createElement("a");
-          link.href = store.apis.file + this.$route.params.file_id + "/" + response.data["token"];
+          link.href = api.defaults.baseURL + "/file/" + this.$route.params.file_id + "/" + response.data["token"];
           link.click();
         })
         .catch((error) => {
+          console.log(error);
           alert("Wrong password");
         });
     },
@@ -52,8 +53,8 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(store.apis.file + this.$route.params.file_id)
+    api
+      .get("/file/" + this.$route.params.file_id)
       .then((response) => {
         this.filename = response.data["filename"];
         this.hours = response.data["hours"];
@@ -61,7 +62,7 @@ export default {
         this.passwordNeeded = response.data["passwordneeded"];
       })
       .catch((e) => {
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/upload" });
       });
   },
 };

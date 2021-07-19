@@ -1,24 +1,21 @@
+import api from "./api"
+api.defaults.headers.common["authorization"] = localStorage.getItem("token")
 export default {
-    previousFiles: [
-    ],
+    previousFiles: JSON.parse(localStorage.getItem("previousFiles")) || [],
+    token: localStorage.getItem("token"),
     addFileToStore(fileid) {
         this.previousFiles.push(fileid)
         localStorage.setItem("previousFiles", JSON.stringify(this.previousFiles))
-    },
-    loadStore() {
-        this.previousFiles = JSON.parse(localStorage.getItem("previousFiles")) || []
     },
     removeFileFromStore(fileid) {
         this.previousFiles = this.previousFiles.filter((file) => {
             return file != fileid
         })
         localStorage.setItem("previousFiles", JSON.stringify(this.previousFiles))
-
     },
-
-    apis: {
-        "file": import.meta.env.VITE_HOST + "/api/file/",
-        "token": import.meta.env.VITE_HOST + "/api/token/",
-
+    setToken(token) {
+        localStorage.setItem("token", token)
+        this.token = token
+        api.defaults.headers.common["authorization"] = token
     }
 }

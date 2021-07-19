@@ -57,13 +57,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../api";
 import store from "../store";
 import UploadedFileComponent from "./UploadedFileComponent.vue";
 export default {
   components: { UploadedFileComponent },
   mounted() {
-    this.previousFilesStore.loadStore();
   },
   computed: {
     progressBarWidth() {
@@ -81,8 +80,8 @@ export default {
       let formData = new FormData();
       formData.append("file", this.file);
       formData.append("password", this.password);
-      axios
-        .put(store.apis.file, formData, {
+      api
+        .put("/file", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

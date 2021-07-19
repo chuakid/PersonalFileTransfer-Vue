@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../api";
 import store from "../store";
 export default {
   computed: {
@@ -26,8 +26,8 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(store.apis.file + this.file)
+    api
+      .get("/file/" + this.file)
       .then((response) => {
         this.filename = response.data["filename"];
         this.hours = response.data["hours"];
