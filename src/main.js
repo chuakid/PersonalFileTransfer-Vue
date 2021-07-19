@@ -18,7 +18,6 @@ const routes = [
 const router = createRouter({ routes, history: createWebHistory() })
 
 router.beforeEach(async (to, from) => {
-    console.log(store.token);
     if (to.path != "/") {
         if (!store.token) {
             return { name: "login" }
