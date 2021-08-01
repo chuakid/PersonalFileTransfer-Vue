@@ -20,7 +20,7 @@ const router = createRouter({ routes, history: createWebHistory() })
 router.beforeEach(async (to, from) => {
     if (to.path != "/") {
         if (!store.token) {
-            return { name: "login" }
+            return { name: "login", query: { redirect: to.path } }
         }
         try {
             let response = await api.post("sitetokenvalidity")
