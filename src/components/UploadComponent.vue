@@ -1,5 +1,5 @@
 <template>
-  <div class="flex bg-gray-50 shadow-md rounded">
+  <div class="flex flex-wrap bg-gray-50 shadow-md rounded justify-center">
     <form id="form" class="px-8 pt-6 pb-8">
       <h2 class="text-3xl font-medium text-center mb-3">Upload</h2>
       <div class="mb-2">
@@ -38,9 +38,11 @@
           ></div>
         </div>
       </div>
-      <div v-if="uploadSuccess" class="rounded bg-indigo-900 hover:bg-indigo-500 pr-2 mt-2 transition">
-        <span class="rounded inline-block bg-indigo-700 shadow-none text-white px-3 mr-2">Link</span>
-        <router-link :to="{ name: 'download', params: { file_id: fileid } }" class="text-white">
+      <div v-if="uploadSuccess" class="rounded bg-indigo-900 hover:bg-indigo-500 md:pr-2 mt-2 transition">
+        <span class="rounded block md:inline-block bg-indigo-700 shadow-none text-center text-white px-3 pr-2"
+          >Link</span
+        >
+        <router-link :to="{ name: 'download', params: { file_id: fileid } }" class="text-white px-2">
           {{ downloadLink }}
         </router-link>
       </div>
@@ -62,8 +64,7 @@ import store from "../store";
 import UploadedFileComponent from "./UploadedFileComponent.vue";
 export default {
   components: { UploadedFileComponent },
-  mounted() {
-  },
+  mounted() {},
   computed: {
     progressBarWidth() {
       return "width: " + this.uploadProgress + "%";
