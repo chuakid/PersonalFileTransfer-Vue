@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap bg-gray-50 shadow-md rounded justify-center">
+  <div class="flex flex-wrap px-2 bg-gray-50 shadow-md rounded justify-center">
     <form id="form" class="px-8 pt-6 pb-8">
       <h2 class="text-3xl font-medium text-center mb-3">Upload</h2>
       <div class="mb-2">
@@ -47,7 +47,7 @@
         </router-link>
       </div>
     </form>
-    <div class="flex flex-col bg-gray-50 border-l px-8 pt-6 pb-8">
+    <div class="flex flex-col bg-gray-50 md:border-l px-8 pt-6 pb-8">
       <h2 class="text-3xl font-medium text-center mb-3">Previous Files</h2>
       <uploaded-file-component
         v-for="file in previousFilesStore.previousFiles"
